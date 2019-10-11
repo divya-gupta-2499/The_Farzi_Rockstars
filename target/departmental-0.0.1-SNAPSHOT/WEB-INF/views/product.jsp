@@ -1,83 +1,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Products</title>
-</head>
-<body>
-	<h3>Products Page</h3>
-	<h3><font color="red">${msg }</font></h3>
-	
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<h3><a href="/departmental/addProd"> Add a Product </a></h3>
+<html lang="en">
+<%@include file="/WEB-INF/views/header.jsp"%>
+<body class="goto-here">
+	<%@include file="/WEB-INF/views/navbar.jsp"%>
+	<div class="hero-wrap hero-bread"
+		style="background-image: url(<c:url value='/resources/images/bg_1.jpg' />);">
+		<div class="container">
+			<div
+				class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Products</span>
+					</p>
+					<h1 class="mb-0 bread">Products</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-10 mb-5 text-center">
+					<ul class="product-category">
+						<li><a href="/departmental/products">All</a></li>
+						<c:forEach var="category" items="${categories }">
+							<li><a
+								href="${pageContext.request.contextPath }/products/${category.categoryName}">${category.categoryName}</a></li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<c:forEach var="product" items="${products }">
+					<div class="col-md-6 col-lg-3 ftco-animate">
+						<div class="product">
+							<a href="#" class="img-prod"><img class="img-fluid"
+								src="<c:url value='${product.productUrl }' />" alt="Product Image" width="1000px" height="800px">
+								<div class="overlay"></div> </a>
 
-	</sec:authorize>
+							<div class="text py-3 pb-4 px-3 text-center">
+								<h3>
+									<a href="#">${product.productName }</a>
+								</h3>
+								<div class="d-flex">
+									<div class="pricing">
+										<p class="price">
+											<span class="price-sale">Rs. ${product.price}</span>
+										</p>
+									</div>
+								</div>
+								<div class="bottom-area d-flex px-3">
+									<div class="m-auto d-flex">
+										<a href="#"
+											class="add-to-cart d-flex justify-content-center align-items-center text-center">
+											<span><i class="ion-ios-menu"></i></span>
+										</a> <a
+											href="${pageContext.request.contextPath }/cart/buy/${product.productId}"
+											class="buy-now d-flex justify-content-center align-items-center mx-1">
+											<span><i class="ion-ios-cart"></i></span>
+										</a> <a href="#"
+											class="heart d-flex justify-content-center align-items-center ">
+											<span><i class="ion-ios-heart"></i></span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 
-	<sec:authorize access="hasRole('ROLE_VENDOR')">
-		<h3><a href="/departmental/sendProposal"> Send Proposal for a Product
-		</a></h3>
+			</div>
+		</div>
 
-	</sec:authorize>
-	
-	<sec:authorize access="hasRole('ROLE_USER')">
-		<h3>
-			<a href="/departmental/cart"> Go to cart </a>
-		</h3>
-	</sec:authorize>
-	<c:forEach var="item" items="${categories }">
-		<c:set var="flag" value="0"></c:set>
-		<h4>
-			<a
-				href="${pageContext.request.contextPath }/products/${item.categoryName}">${item.categoryName }</a>
-		</h4>
-		<h4>${item.description }</h4>
-		<table cellpadding="2" cellspacing="2" border="1">
-			<c:forEach var="product" items="${products }">
-				<c:if test="${product.categoryName eq item.categoryName }">
-					<c:if test="${flag == '0'}">
-						<tr>
-							<th>ProductId</th>
-							<th>Name</th>
-							<th>Price</th>
-						</tr>
-						<c:set var="flag" value="1"></c:set>
-					</c:if>
-					<tr>
-						<td>${product.productId }</td>
-						<td>${product.productName }</td>
-						<td>${product.price }</td>
-						<sec:authorize access="hasRole('ROLE_USER')">
-							<td align="center"><a
-								href="${pageContext.request.contextPath }/cart/buy/${product.productId}">Add
-									to Cart</a></td>
-						</sec:authorize>
-						<sec:authorize access="hasRole('ROLE_ADMIN')">
-							<td align="center"><a
-								href="${pageContext.request.contextPath }/updateProd/${product.productId}">
-									Update Product </a></td>
-							<td align="center"><a
-								href="${pageContext.request.contextPath }/deleteProd/${product.productId}">
-									Delete Product </a></td>
-						</sec:authorize>
+	</section>
+    <footer class="ftco-footer ftco-section">
+       <div class="row">
+         <div class="col-md-12 text-center">
 
-					</tr>
-				</c:if>
-			</c:forEach>
-		</table>
-		<c:if test="${flag == '0'}">
-			<h3>
-				<font color="red"> Sorry, currently there are no products in
-					this category. </font>
-			</h3>
-		</c:if>
-	</c:forEach>
+           <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+           </p>
+         </div>
+       </div>
+   </footer>
 
-	
+
+	<script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/jquery-migrate-3.0.1.min.js' />"></script>
+	<script src="<c:url value='/resources/js/popper.min.js' />"></script>
+	<script src="<c:url value='/resources/js/bootstrap.min.js' />"></script>
+	<script src="<c:url value='/resources/js/jquery.easing.1.3.js' />"></script>
+	<script src="<c:url value='/resources/js/jquery.waypoints.min.js' />"></script>
+	<script src="<c:url value='/resources/js/jquery.stellar.min.js' />"></script>
+	<script src="<c:url value='/resources/js/owl.carousel.min.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/jquery.magnific-popup.min.js' />"></script>
+	<script src="<c:url value='/resources/js/aos.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/jquery.animateNumber.min.js' />"></script>
+	<script src="<c:url value='/resources/js/bootstrap-datepicker.js' />"></script>
+	<script src="<c:url value='/resources/js/scrollax.min.js' />"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="<c:url value='/resources/js/google-map.js' />"></script>
+	<script src="<c:url value='/resources/js/main.js' />"></script>
+
+	<script>
+		$(document).ready(function() {
+
+			var quantitiy = 0;
+			$('.quantity-right-plus').click(function(e) {
+
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+				$('#quantity').val(quantity + 1);
+
+				// Increment
+
+			});
+
+			$('.quantity-left-minus').click(function(e) {
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+				// Increment
+				if (quantity > 0) {
+					$('#quantity').val(quantity - 1);
+				}
+			});
+
+		});
+	</script>
 
 </body>
 </html>

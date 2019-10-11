@@ -57,8 +57,7 @@ public class OrderController {
 			return new ModelAndView("home", "msg", "No orders placed yet.");
 		}
 		ModelAndView model = new ModelAndView("viewOrder");
-		model.addObject("noOfOrders", allOrderIds);
-		model.addObject("allOrders", orders);
+		model.addObject("orders", orderdao.findAll(username));
 		return model;
 	}
 	
@@ -97,16 +96,15 @@ public class OrderController {
 		return orderSumm(bill);
 	}
 
-	@RequestMapping(value = "/bill/{orderId}", method = RequestMethod.GET)
-	public ModelAndView getBill(@PathVariable("orderId") int orderId) {
-		String username = orderdao.getUsernameFromOrderId(orderId);
-		List<Order> allOrders = orderdao.findOrdersForOrderId(orderId);
+	@RequestMapping(value = "/orderDetails/{orderId}", method = RequestMethod.GET)
+	public ModelAndView orderDetails(@PathVariable("orderId") int orderId) {	
 		// Customer customer = customerdao.getCustomer(username);
-		Customer customer = customerdao.getCustomer(username);
-		ModelAndView model = new ModelAndView("bill");
-		model.addObject("customer", customer);
+		ModelAndView model = new ModelAndView("orderDetails");
+		model.addObject("orders", orderdao.findOrdersForOrderId(orderId));
 		model.addObject("bill", orderdao.getBill(orderId));
-		model.addObject("orders", allOrders);
+		if(orderdao.getCourierInfo(orderId) != null) {
+			model.addObject("courier", orderdao.getCourierInfo(orderId));
+		}
 		return model;
 	}
 

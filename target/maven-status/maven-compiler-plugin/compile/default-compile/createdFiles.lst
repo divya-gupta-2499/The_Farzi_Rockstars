@@ -33,6 +33,7 @@ com/khushi/controller/ProposalController.class
 com/khushi/dao/CartDAOImpl$4.class
 com/khushi/dao/VendorDAOImpl$2.class
 com/khushi/dao/ProductDAOImpl.class
+com/khushi/dao/OrderDAOImpl$17.class
 com/khushi/dao/UserDAOImpl$8.class
 com/khushi/dao/ProductDAOImpl$5.class
 com/khushi/dao/CartDAOImpl$1.class
@@ -68,6 +69,7 @@ com/khushi/dao/UserDAOImpl$6.class
 com/khushi/dao/VendorDAOImpl$7.class
 com/khushi/model/VendorProposal.class
 com/khushi/dao/ProductDAOImpl$4.class
+com/khushi/dao/OrderDAOImpl$18.class
 com/khushi/dao/CourierDAOImpl.class
 com/khushi/dao/OrderDAOImpl$2.class
 com/khushi/dao/OrderDAOImpl$8.class

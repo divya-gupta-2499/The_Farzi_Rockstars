@@ -20,6 +20,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.khushi.model.Bill;
 import com.khushi.model.Category;
+import com.khushi.model.Courier;
 import com.khushi.model.Item;
 import com.khushi.model.Order;
 import com.khushi.model.Product;
@@ -63,8 +64,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<Order> findAll(final String username) {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT * FROM order_info, all_orders WHERE username = ? and "
-				+ "order_info.orderId = all_orders.orderId";
+		String sql = "SELECT * FROM all_orders WHERE username = ?";
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -78,11 +78,8 @@ public class OrderDAOImpl implements OrderDAO {
 					Order order = new Order();
 					order.setOrderId(rs.getInt("orderId"));
 					// order.setUsername(getUsernameFromOrderId(orderId));
-					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
-					item.setQuantity(rs.getInt("quantity"));
-					order.setItem(item);
 					order.setStatus(rs.getString("status"));
+					order.setCourierId(rs.getString("courierId"));
 					orders.add(order);
 				}
 				return orders;
@@ -193,6 +190,31 @@ public class OrderDAOImpl implements OrderDAO {
 					orders.add(order);
 				}
 				return orders;
+			}
+
+		});
+	}
+	
+	@Override
+	public Courier getCourierInfo(final int orderId) {
+		String sql = "SELECT courierId, courierCompanyName, email from all_orders,courier where orderId = ? and courierId is not null and courierId = courier.username";
+		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
+
+			public void setValues(PreparedStatement preparedStatement) throws SQLException {
+				preparedStatement.setInt(1, orderId);
+			}
+		}, new ResultSetExtractor<Courier>() {
+
+			@Override
+			public Courier extractData(ResultSet rs) throws SQLException, DataAccessException {
+				if (rs.next()) {
+					Courier courier = new Courier();
+					courier.setUsername(rs.getString("courierId"));
+					courier.setCourierCompanyName(rs.getString("courierCompanyName"));
+					courier.setEmail(rs.getString("email"));
+					return courier;
+				}
+				return null;
 			}
 
 		});

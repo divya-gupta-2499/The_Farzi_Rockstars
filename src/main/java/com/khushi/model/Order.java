@@ -10,6 +10,7 @@ public class Order {
 	//private String username;
 	private Item item;
 	private String status;
+	private String courierId; 
 	private static Map<String, Integer> idStatus = new HashMap<String, Integer>();
 
 	public Order() {
@@ -72,6 +73,14 @@ public class Order {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getCourierId() {
+		return courierId;
+	}
+
+	public void setCourierId(String courierId) {
+		this.courierId = courierId;
 	}
 
 }

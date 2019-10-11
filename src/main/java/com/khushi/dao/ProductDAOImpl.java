@@ -76,6 +76,7 @@ public class ProductDAOImpl implements ProductDAO {
 					product.setQuantity(rs.getInt("quantity"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
+					product.setProductUrl(rs.getString("product_url"));
 					products.add(product);
 				}
 				return products;
@@ -99,6 +100,7 @@ public class ProductDAOImpl implements ProductDAO {
 					product.setQuantity(rs.getInt("quantity"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
+					product.setProductUrl(rs.getString("product_url"));
 					products.add(product);
 				}
 				return products;
@@ -145,6 +147,7 @@ public class ProductDAOImpl implements ProductDAO {
 					product.setQuantity(rs.getInt("quantity"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
+					product.setProductUrl(rs.getString("product_url"));
 					return product;
 				}
 				return null;

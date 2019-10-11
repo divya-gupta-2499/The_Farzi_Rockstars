@@ -60,7 +60,7 @@
 		<property name="password" value="17075060" />
 	</bean>
 	
-	<mvc:resources mapping="/resources/**/" location="/resources/theme1/" />
+	<mvc:resources mapping="/resources/**" location="/resources/theme1/" />
 	<mvc:annotation-driven />
  
 </beans>

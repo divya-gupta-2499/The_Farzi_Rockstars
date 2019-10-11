@@ -7,6 +7,7 @@ public class Product {
 	private int quantity;
 	private int price;
 	private String categoryName;
+	private String productUrl;
 
 	public Product() {
 
@@ -60,6 +61,14 @@ public class Product {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public String getProductUrl() {
+		return productUrl;
+	}
+
+	public void setProductUrl(String productUrl) {
+		this.productUrl = productUrl;
 	}
 
 }

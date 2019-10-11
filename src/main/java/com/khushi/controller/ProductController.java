@@ -90,8 +90,8 @@ public class ProductController {
 
 	@RequestMapping(value = "/products/{categoryName}", method = RequestMethod.GET)
 	public ModelAndView prod2(@PathVariable("categoryName") String categoryName) {
-		ModelAndView model = new ModelAndView("prodPerCategory");
-		model.addObject("categoryName", categoryName);
+		ModelAndView model = new ModelAndView("product");
+		model.addObject("categories", productdao.getCategory());
 		model.addObject("products", productdao.findAll(categoryName));
 		return model;
 	}

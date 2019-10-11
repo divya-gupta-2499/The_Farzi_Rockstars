@@ -3,6 +3,7 @@ package com.khushi.dao;
 import java.util.List;
 
 import com.khushi.model.Bill;
+import com.khushi.model.Courier;
 import com.khushi.model.Order;
 
 public interface OrderDAO {
@@ -30,6 +31,8 @@ public interface OrderDAO {
 	public boolean isProductInOrders(final String productId);
 	
 	public int getOrderId();
+	
+	public Courier getCourierInfo(final int orderId);
 
 }
 

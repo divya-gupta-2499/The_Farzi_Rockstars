@@ -1,159 +1,134 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" session="true"%>
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!--DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Login</title>
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
+<!DOCTYPE html>
+<html lang="en">
+<%@include file="/WEB-INF/views/header.jsp"%>
+  <body class="goto-here">
+	<%@include file="/WEB-INF/views/navbar.jsp"%>
+    <div class="hero-wrap hero-bread" style="background-image: url(<c:url value='/resources/images/bg_1.jpg' />);">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <p class="breadcrumbs"><span class="mr-2"><a href="/departmental/">Home</a></span> <span>Login</span></p>
+            <h1 class="mb-0 bread">Login</h1>
+          </div>
+        </div>
+      </div>
+    </div>
 
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-</style>
-</head>
-<body onload='document.loginForm.username.focus();'>
-	<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty msg}">
-			<div class="msg">${msg}</div>
-		</c:if>
-	<form name='loginForm'
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-7 ftco-animate">
+          <form class="billing-form"
 			action="<c:url value='/j_spring_security_check' />" method='POST'>
-		<table>
-			<tr>
-				<td>UserId</td>
-<td><input type="number" name="userid" /></td>
-</tr>
-
-<tr>
-<td>Password</td>
-<td><input type="password" name="password" /></td>
-</tr>
-
-<tr>
-<td colspan="2"><input type="submit" value="Login" /></td>
-</tr>
-</table>
-<input type="hidden" name="${_csrf.parameterName}"
+              <h3 class="mb-4 billing-heading">Login</h3>
+              <div class="row align-items-end">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="firstname">User Name</label>
+                    <input type="text" name="username" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="lastname">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="">
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary py-3 px-4"> Login </button>
+              <input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
-</form>
+            </form><!-- END -->
+            <br>
+            <div class="row justify-content-center">
+            <div class="col-md-6">
+            	<a href="/departmental/forgotPassword">Forgot Password?</a>
+            </div>
+            <div class="col-md-6">
+            	<a href="/departmental/register">Register Here!</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> <!-- .section -->
 
-<p> Don't have an account? </p>
-<a href="/springwebapp/register">Register Here!</a>
+    <footer class="ftco-footer ftco-section">
+        <div class="row">
+          <div class="col-md-12 text-center">
 
-</body>
-</html>-->
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+          </div>
+        </div>
+    </footer>
+    
+  
 
-<html>
-<head>
-<title>Login Page</title>
-<style>
-.error {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #a94442;
-	background-color: #f2dede;
-	border-color: #ebccd1;
-}
 
-.msg {
-	padding: 15px;
-	margin-bottom: 20px;
-	border: 1px solid transparent;
-	border-radius: 4px;
-	color: #31708f;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
 
-#login-box {
-	width: 300px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-</style>
-</head>
-<body onload='document.loginForm.username.focus();'>
+  <script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+  <script src="<c:url value='/resources/js/jquery-migrate-3.0.1.min.js' />"></script>
+  <script src="<c:url value='/resources/js/popper.min.js' />"></script>
+  <script src="<c:url value='/resources/js/bootstrap.min.js' />"></script>
+  <script src="<c:url value='/resources/js/jquery.easing.1.3.js' />"></script>
+  <script src="<c:url value='/resources/js/jquery.waypoints.min.js' />"></script>
+  <script src="<c:url value='/resources/js/jquery.stellar.min.js' />"></script>
+  <script src="<c:url value='/resources/js/owl.carousel.min.js' />"></script>
+  <script src="<c:url value='/resources/js/jquery.magnific-popup.min.js' />"></script>
+  <script src="<c:url value='/resources/js/aos.js' />"></script>
+  <script src="<c:url value='/resources/js/jquery.animateNumber.min.js' />"></script>
+  <script src="<c:url value='/resources/js/bootstrap-datepicker.js' />"></script>
+  <script src="<c:url value='/resources/js/scrollax.min.js' />"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="<c:url value='/resources/js/google-map.js' />"></script>
+  <script src="<c:url value='/resources/js/main.js' />"></script>
 
-	<h1>Spring Security Login Form (Database Authentication)</h1>
+  <script>
+    $(document).ready(function(){
 
-	<div id="login-box">
+    var quantitiy=0;
+       $('.quantity-right-plus').click(function(e){
+            
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+            
+            // If is not undefined
+                
+                $('#quantity').val(quantity + 1);
 
-		<h3>Login with Username and Password</h3>
+              
+                // Increment
+            
+        });
 
-		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty msg}">
-			<div class="msg">${msg}</div>
-		</c:if>
-
-		<form name='loginForm'
-			action="<c:url value='/j_spring_security_check' />" method='POST'>
-
-			<table>
-				<tr>
-					<td>Username:</td>
-					<td><input type='text' name="username"></td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type='password' name="password" /></td>
-				</tr>
-				<tr>
-					<td colspan='2'><input name="submit" type="submit"
-						value="submit" /></td>
-				</tr>
-			</table>
-			
-			<a href="/departmental/forgotPassword"> Forgot Password? </a>
-
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-
-		</form>
-		
-	</div>
-	
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-				<a href="/departmental/changePassword"> Change password </a>
-		</c:if>
-
-</body>
+         $('.quantity-left-minus').click(function(e){
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('#quantity').val());
+            
+            // If is not undefined
+          
+                // Increment
+                if(quantity>0){
+                $('#quantity').val(quantity - 1);
+                }
+        });
+        
+    });
+  </script>
+    
+  </body>
 </html>

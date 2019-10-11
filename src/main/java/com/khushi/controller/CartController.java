@@ -37,11 +37,11 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/cart/remove/{productId}", method = RequestMethod.GET)
-	public ModelAndView remove(@PathVariable("productId") String productId) {
+	public String remove(@PathVariable("productId") String productId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		cartdao.removeFromCart(productId, userDetail.getUsername());
-		return new ModelAndView("cart", "cart", cartdao.findAll(userDetail.getUsername()));
+		return "redirect:/cart";
 	}
 
 	@RequestMapping(value = "/cart/update", method = RequestMethod.POST)
@@ -63,7 +63,11 @@ public class CartController {
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<Item> cart = cartdao.findAll(userDetail.getUsername());
 		if(cart.isEmpty()) {
-			return new ModelAndView("products", "msg", "No items in cart.");
+			ModelAndView model = new ModelAndView("product");
+			model.addObject("categories", productdao.getCategory());
+			model.addObject("products", productdao.findAllProducts());
+			model.addObject("msg", "No items in cart.");
+			return model;
 		}
 		return new ModelAndView("cart", "cart", cartdao.findAll(userDetail.getUsername()));
 	}

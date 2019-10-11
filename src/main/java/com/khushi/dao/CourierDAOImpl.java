@@ -42,12 +42,12 @@ public class CourierDAOImpl implements CourierDAO {
 	@Override
 	public List<Order> getAcceptedOrders(final String username) {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT order_info.orderId, productId, quantity, status FROM courier_status, order_info WHERE "
-				+ "status = ? and username = ? and courier_status.orderId = order_info.orderId";
+		String sql = "SELECT order_info.orderId, productId, quantity, status FROM order_info, all_orders WHERE "
+				+ "status = ? and courierId = ? and all_orders.orderId = order_info.orderId";
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setInt(1, 0);
+				preparedStatement.setString(1, "Accepted");
 				preparedStatement.setString(2, username);
 			}
 		}, new ResultSetExtractor<List<Order>>() {
@@ -63,6 +63,7 @@ public class CourierDAOImpl implements CourierDAO {
 					item.setQuantity(rs.getInt("quantity"));
 					order.setItem(item);
 					order.setStatus("Accepted");
+					order.setCourierId(username);
 					orders.add(order);
 				}
 				return orders;
@@ -74,12 +75,13 @@ public class CourierDAOImpl implements CourierDAO {
 	@Override
 	public List<Order> getDeliveredOrders(final String username) {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT order_info.orderId, productId, quantity, status FROM courier_status, order_info WHERE "
-				+ "status = ? and username = ? and courier_status.orderId = order_info.orderId";
+		String sql = "SELECT order_info.orderId, productId, quantity, status FROM order_info, all_orders WHERE "
+				+ "status = ? and courierId = ? and all_orders.orderId = order_info.orderId"; 
+								
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setInt(1, 1);
+				preparedStatement.setString(1, "Delivered");
 				preparedStatement.setString(2, username);
 			}
 		}, new ResultSetExtractor<List<Order>>() {
@@ -95,6 +97,7 @@ public class CourierDAOImpl implements CourierDAO {
 					item.setQuantity(rs.getInt("quantity"));
 					order.setItem(item);
 					order.setStatus("Delivered");
+					order.setCourierId(username);
 					orders.add(order);
 				}
 				return orders;
@@ -105,17 +108,13 @@ public class CourierDAOImpl implements CourierDAO {
 
 	@Override
 	public void acceptOrder(final int orderId, final String username) {
-		String sql = "Insert into courier_status values(?,?,?)";
-		jdbcTemplate.update(sql, new Object[] { username, 0, orderId });
-		sql = "Update all_orders set status = ? where orderId = ?";
-		jdbcTemplate.update(sql, new Object[] { "Accepted", orderId });
+		String sql = "Update all_orders set status = ?, courierId = ? where orderId = ?";
+		jdbcTemplate.update(sql, new Object[] { "Accepted", username, orderId });
 	}
 
 	@Override
 	public void deliverOrder(final int orderId) {
-		String sql = "Update courier_status set status = ? where orderId = ?";
-		jdbcTemplate.update(sql, new Object[] { 1, orderId });
-		sql = "Update all_orders set status = ? where orderId = ?";
+		String sql = "Update all_orders set status = ? where orderId = ?";
 		jdbcTemplate.update(sql, new Object[] { "Delivered", orderId });
 	}
 

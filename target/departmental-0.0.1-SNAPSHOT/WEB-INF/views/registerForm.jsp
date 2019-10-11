@@ -6,143 +6,208 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html>
-<style>
-#login-box {
-	width: 600px;
-	padding: 20px;
-	margin: 100px auto;
-	background: #fff;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border: 1px solid #000;
-}
-input[type=text],input[type=number],input[type=email],input[type=password], select, textarea{
-  width: 200%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
-}
-
-label {
-  padding: 12px 12px 12px 0;
-  display: inline-block;
-}
-
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
-}
-
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-}
-
-.col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-</style>
-<head>
-<meta charset="UTF-8">
-<title>Registration - Customer</title>
-</head>
-<body>
-	<div id="login-box">
-	<h3 align = "center"> Registration Form </h3>
-	<form:form name="Form1" method="POST" modelAttribute="customer"
-		action="/departmental/register">
-		<table>
-		<sec:authorize access="!hasRole('ROLE_USER') and !hasRole('ROLE_VENDOR')">
-			<tr>
-				<td><form:label path="username">Username</form:label></td>
-				<td><form:input name="username" path="username" type="text"
-						required="true" /><font color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="password">Password</form:label></td>
-				<td><form:input path="password" type="password" required="true" /><font
-					color='red'></font></td>
-			</tr>
-		</sec:authorize>
-			<tr>
-				<td><form:label path="fName">First Name</form:label></td>
-				<td><form:input path="fName" type="text" required="true" value="${customer.fName }"/><font
-					color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="lName">Last Name</form:label></td>
-				<td><form:input path="lName" type="text" required="true" value="${customer.lName }"/><font
-					color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="email">Email</form:label></td>
-				<td><form:input path="email" type="email" required="true" value="${customer.email }"/><font
-					color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="contact">Contact</form:label></td>
-				<td><form:input path="contact" type="number" required="true" value="${customer.contact }"/><font
-					color='red'></font></td>
-			</tr>
-			
-			<tr>
-				<td><form:label path="age">Age</form:label></td>
-				<td><form:input path="age" type="number" required="true"
-						min="1" max="100" value="${customer.age }"/><font color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="houseNo">House No</form:label></td>
-				<td><form:input path="houseNo" type="text" required="true" value="${customer.houseNo }"/><font
-					color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td><form:label path="street">Street</form:label></td>
-				<td><form:input path="street" type="text" required="true" value="${customer.street }"/><font
-					color='red'></font></td>
-			</tr>
-			
-			<tr>
-				<td><form:label path="locality">Locality</form:label></td>
-				<td><form:input path="locality" type="text" required="true" value="${customer.locality }"/><font
-					color='red'></font></td>
-			</tr>
-
-			<tr>
-				<td colspan="2"><input type="submit" value="Submit" /></td>
-			</tr>
-		</table>
-	</form:form>
+<html lang="en">
+<%@include file="/WEB-INF/views/header.jsp"%>
+<body class="goto-here">
+	<%@include file="/WEB-INF/views/navbar.jsp"%>
+	<div class="hero-wrap hero-bread"
+		style="background-image: url(<c:url value='/resources/images/bg_1.jpg' />);">
+		<div class="container">
+			<div
+				class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Register</span>
+					</p>
+					<h1 class="mb-0 bread">Register</h1>
+				</div>
+			</div>
+		</div>
 	</div>
 
-	<p>${msg }</p>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-7 ftco-animate">
+					<form:form class="billing-form" name="Form1" method="POST" modelAttribute="customer"
+		action="/departmental/register">
+						<h3 class="mb-4 billing-heading">Customer</h3>
+						<div class="row align-items-end">
+							<sec:authorize access="!hasRole('ROLE_USER') and !hasRole('ROLE_VENDOR')">
+								<div class="col-md-6">
+									<div class="form-group">
+										<form:label path="username">Username</form:label>
+										<form:input name="username" path="username" type="text"
+											required="true" class="form-control" placeholder="" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<form:label path="password">Password</form:label>
+										<form:input path="password" type="password" required="true"
+											class="form-control" placeholder="" />
+									</div>
+								</div>
+							</sec:authorize>
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="fName">First Name</form:label>
+									<form:input path="fName" type="text"
+										value="${customer.fName }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="lName">Last Name</form:label>
+									<form:input path="lName" type="text"
+										value="${customer.lName }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="email">Email</form:label>
+									<form:input path="email" type="email"
+										value="${customer.email }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="contact">Contact</form:label>
+									<form:input path="contact" type="number"
+										value="${customer.contact }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+								</div>
+								
+								<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="age">Age</form:label>
+									<form:input path="age" type="number"
+										value="${customer.age }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+								</div>
+								
+								<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="houseNo">House No</form:label>
+									<form:input path="houseNo" type="text"
+										value="${customer.houseNo }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+								</div>
+								
+								<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="street">Street</form:label>
+									<form:input path="street" type="text"
+										value="${customer.street }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+								</div>
+								
+								<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="locality">Locality</form:label>
+									<form:input path="locality" type="text"
+										value="${customer.locality }" required="true"
+										class="form-control" placeholder="" />
+								</div>
+								</div>
+								
+							</div>
+							<button type="submit" class="btn btn-primary py-3 px-4">
+								Submit</button>
+					</form:form>
+					<!-- END -->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- .section -->
+
+	<footer class="ftco-footer ftco-section">
+		<div class="row">
+			<div class="col-md-12 text-center">
+
+				<p>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+					All rights reserved | This template is made with <i
+						class="icon-heart color-danger" aria-hidden="true"></i> by <a
+						href="https://colorlib.com" target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+			</div>
+		</div>
+	</footer>
+
+
+
+
+
+	<script src="<c:url value='/resources/js/jquery.min.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/jquery-migrate-3.0.1.min.js' />"></script>
+	<script src="<c:url value='/resources/js/popper.min.js' />"></script>
+	<script src="<c:url value='/resources/js/bootstrap.min.js' />"></script>
+	<script src="<c:url value='/resources/js/jquery.easing.1.3.js' />"></script>
+	<script src="<c:url value='/resources/js/jquery.waypoints.min.js' />"></script>
+	<script src="<c:url value='/resources/js/jquery.stellar.min.js' />"></script>
+	<script src="<c:url value='/resources/js/owl.carousel.min.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/jquery.magnific-popup.min.js' />"></script>
+	<script src="<c:url value='/resources/js/aos.js' />"></script>
+	<script
+		src="<c:url value='/resources/js/jquery.animateNumber.min.js' />"></script>
+	<script src="<c:url value='/resources/js/bootstrap-datepicker.js' />"></script>
+	<script src="<c:url value='/resources/js/scrollax.min.js' />"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="<c:url value='/resources/js/google-map.js' />"></script>
+	<script src="<c:url value='/resources/js/main.js' />"></script>
+
+	<script>
+		$(document).ready(function() {
+
+			var quantitiy = 0;
+			$('.quantity-right-plus').click(function(e) {
+
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+				$('#quantity').val(quantity + 1);
+
+				// Increment
+
+			});
+
+			$('.quantity-left-minus').click(function(e) {
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+				// Increment
+				if (quantity > 0) {
+					$('#quantity').val(quantity - 1);
+				}
+			});
+
+		});
+	</script>
+
 </body>
 </html>
