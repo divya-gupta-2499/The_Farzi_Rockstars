@@ -61,7 +61,7 @@ public class FeedbackController {
 	public ModelAndView feedbacks() {
 		List<ContactUs> feedbacks = userdao.getAllFeedbacks();
 		if(feedbacks.isEmpty()) {
-			return new ModelAndView("home", "msg", "No feedbacks to display.");
+			return new ModelAndView("home", "error", "No feedbacks to display.");
 		}
 		return new ModelAndView("allFeedback", "feedbacks", feedbacks);
 	}
@@ -72,7 +72,7 @@ public class FeedbackController {
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<ContactUs> feedbacks = userdao.getFeedbacksWithReplies(userDetail.getUsername());
 		if(feedbacks.isEmpty()) {
-			return new ModelAndView("home", "msg", "No feedbacks sent by you have received replies yet.");
+			return new ModelAndView("home", "error", "No feedbacks sent by you have received replies yet.");
 		}
 		return new ModelAndView("allFeedback", "feedbacks", feedbacks);
 	}

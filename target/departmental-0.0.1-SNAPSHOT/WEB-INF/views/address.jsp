@@ -38,14 +38,14 @@
 								<div class="form-group">
 									<form:label path="houseNo">House No</form:label>
 									<form:input path="houseNo" value="${bill.houseNo }" type="text"
-										required="true" class="form-control" placeholder="" />
+										required="true" class="form-control" placeholder="" maxlength="50"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<form:label path="street">Street</form:label>
 									<form:input path="street" value="${bill.street }" type="text"
-										required="true" class="form-control" placeholder="" />
+										required="true" class="form-control" placeholder="" maxlength="50"/>
 								</div>
 							</div>
 
@@ -54,7 +54,7 @@
 									<form:label path="locality">Locality</form:label>
 									<form:input path="locality" value="${locality.street }"
 										type="text" required="true" class="form-control"
-										placeholder="" />
+										placeholder="" maxlength="50" />
 								</div>
 							</div>
 

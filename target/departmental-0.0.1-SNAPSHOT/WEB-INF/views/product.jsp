@@ -42,7 +42,8 @@
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
 							<a href="#" class="img-prod"><img class="img-fluid"
-								src="<c:url value='${product.productUrl }' />" alt="Product Image" width="1000px" height="800px">
+								src="<c:url value='${product.productUrl }' />"
+								alt="Product Image" width="1000px" height="800px">
 								<div class="overlay"></div> </a>
 
 							<div class="text py-3 pb-4 px-3 text-center">
@@ -56,21 +57,45 @@
 										</p>
 									</div>
 								</div>
-								<div class="bottom-area d-flex px-3">
-									<div class="m-auto d-flex">
-										<a href="#"
-											class="add-to-cart d-flex justify-content-center align-items-center text-center">
-											<span><i class="ion-ios-menu"></i></span>
-										</a> <a
-											href="${pageContext.request.contextPath }/cart/buy/${product.productId}"
-											class="buy-now d-flex justify-content-center align-items-center mx-1">
-											<span><i class="ion-ios-cart"></i></span>
-										</a> <a href="#"
-											class="heart d-flex justify-content-center align-items-center ">
-											<span><i class="ion-ios-heart"></i></span>
-										</a>
+								<sec:authorize access="hasRole('ROLE_USER')">
+									<div class="bottom-area d-flex px-3">
+										<div class="m-auto d-flex">
+											<%--a href="#"
+												class="add-to-cart d-flex justify-content-center align-items-center text-center">
+												<span><i class="ion-ios-menu"></i></span>
+											</a--%> <a
+												href="${pageContext.request.contextPath }/cart/buy/${product.productId}"
+												class="buy-now d-flex justify-content-center align-items-center mx-1">
+												<span><i class="ion-ios-cart"></i></span>
+											</a> <%--a href="#"
+												class="heart d-flex justify-content-center align-items-center ">
+												<span><i class="ion-ios-heart"></i></span>
+											</a--%>
+										</div>
 									</div>
-								</div>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<div class="bottom-area d-flex px-3">
+										<div class="m-auto d-flex">
+											<a
+												href="${pageContext.request.contextPath }/deleteProd/${product.productId}"
+												class="buy-now d-flex justify-content-center align-items-center mx-1">
+												<span><i class="fa fa-trash"></i></span>
+											</a>
+										</div>
+									</div>
+								</sec:authorize>
+								<sec:authorize access="hasRole('ROLE_VENDOR')">
+									<div class="bottom-area d-flex px-3">
+										<div class="m-auto d-flex">
+											<a
+												href="${pageContext.request.contextPath }/sendProposal/${product.productId}"
+												class="buy-now d-flex justify-content-center align-items-center mx-1">
+												<span><i class="fa fa-comment"></i></span>
+											</a>
+										</div>
+									</div>
+								</sec:authorize>
 							</div>
 						</div>
 					</div>
@@ -80,17 +105,24 @@
 		</div>
 
 	</section>
-    <footer class="ftco-footer ftco-section">
-       <div class="row">
-         <div class="col-md-12 text-center">
+	<footer class="ftco-footer ftco-section">
+		<div class="row">
+			<div class="col-md-12 text-center">
 
-           <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-           </p>
-         </div>
-       </div>
-   </footer>
+				<p>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+					All rights reserved | This template is made with <i
+						class="icon-heart color-danger" aria-hidden="true"></i> by <a
+						href="https://colorlib.com" target="_blank">Colorlib</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</p>
+			</div>
+		</div>
+	</footer>
 
 
 	<script src="<c:url value='/resources/js/jquery.min.js' />"></script>

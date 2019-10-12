@@ -66,7 +66,7 @@ public class CartController {
 			ModelAndView model = new ModelAndView("product");
 			model.addObject("categories", productdao.getCategory());
 			model.addObject("products", productdao.findAllProducts());
-			model.addObject("msg", "No items in cart.");
+			model.addObject("error", "No items in cart.");
 			return model;
 		}
 		return new ModelAndView("cart", "cart", cartdao.findAll(userDetail.getUsername()));

@@ -42,8 +42,9 @@ public class CourierDAOImpl implements CourierDAO {
 	@Override
 	public List<Order> getAcceptedOrders(final String username) {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT order_info.orderId, productId, quantity, status FROM order_info, all_orders WHERE "
-				+ "status = ? and courierId = ? and all_orders.orderId = order_info.orderId";
+		/*String sql = "SELECT order_info.orderId, productId, quantity, status FROM order_info, all_orders WHERE "
+				+ "status = ? and courierId = ? and all_orders.orderId = order_info.orderId";*/
+		String sql = "select * from all_orders where status = ? and courierId = ?";
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -57,11 +58,8 @@ public class CourierDAOImpl implements CourierDAO {
 				while (rs.next()) {
 					Order order = new Order();
 					order.setOrderId(rs.getInt("orderId"));
+					order.setUsername(rs.getString("username"));
 					// order.setUsername(getUsernameFromOrderId(orderId));
-					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
-					item.setQuantity(rs.getInt("quantity"));
-					order.setItem(item);
 					order.setStatus("Accepted");
 					order.setCourierId(username);
 					orders.add(order);
@@ -75,9 +73,10 @@ public class CourierDAOImpl implements CourierDAO {
 	@Override
 	public List<Order> getDeliveredOrders(final String username) {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT order_info.orderId, productId, quantity, status FROM order_info, all_orders WHERE "
-				+ "status = ? and courierId = ? and all_orders.orderId = order_info.orderId"; 
-								
+		/*String sql = "SELECT order_info.orderId, productId, quantity, status FROM order_info, all_orders WHERE "
+				+ "status = ? and courierId = ? and all_orders.orderId = order_info.orderId"; */
+		String sql = "select * from all_orders where status = ? and courierId = ?";
+		
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -91,11 +90,11 @@ public class CourierDAOImpl implements CourierDAO {
 				while (rs.next()) {
 					Order order = new Order();
 					order.setOrderId(rs.getInt("orderId"));
-					// order.setUsername(getUsernameFromOrderId(orderId));
-					Item item = new Item();
+					order.setUsername(rs.getString("username"));
+					/*Item item = new Item();
 					item.setProduct(productdao.get(rs.getString("productId")));
 					item.setQuantity(rs.getInt("quantity"));
-					order.setItem(item);
+					order.setItem(item);*/
 					order.setStatus("Delivered");
 					order.setCourierId(username);
 					orders.add(order);

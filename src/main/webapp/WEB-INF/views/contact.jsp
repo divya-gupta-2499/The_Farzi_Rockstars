@@ -19,7 +19,7 @@
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Contact Us</span>
 					</p>
-					<h1 class="mb-0 bread">Contact Us</h1>
+					<h1 class="mb-0 bread">Feedback</h1>
 				</div>
 			</div>
 		</div>
@@ -36,14 +36,14 @@
 						<div class="form-group">
 							<label>Subject</label>
 							<form:input path="subject" type="text" required="true"
-								class="form-control" placeholder="" />
+								class="form-control" placeholder="" maxlength="500"/>
 						</div>
 						</div>
 						<div class="row align-items-end">
 						<div class="form-group">
 							<label for="message">Details</label>
 							<form:textarea cols="30" rows="7" path="details" type="text" required="true"
-								class="form-control" placeholder="" />
+								class="form-control" placeholder="" maxlength="1000" />
 						</div>
 						</div>
 						

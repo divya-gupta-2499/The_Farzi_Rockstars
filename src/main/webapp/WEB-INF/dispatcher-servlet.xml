@@ -55,7 +55,7 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/final" />
+			value="jdbc:mysql://localhost:3306/testing" />
 		<property name="username" value="root" />
 		<property name="password" value="17075060" />
 	</bean>

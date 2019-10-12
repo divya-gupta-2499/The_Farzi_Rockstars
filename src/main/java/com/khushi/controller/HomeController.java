@@ -32,6 +32,11 @@ public class HomeController {
 	public ModelAndView hi() {
 		return new ModelAndView("home");
 	}
+	
+	@RequestMapping(value = "/error404")
+	public ModelAndView error() {
+		return new ModelAndView("home", "error", "No such page exists.");
+	}
 
 	@RequestMapping(value = { "/partner", "/addVendor" }, method = RequestMethod.GET)
 	public ModelAndView partner() {
@@ -53,7 +58,7 @@ public class HomeController {
 			User user = userdao.get(userDetail.getUsername());
 			if (user.getRole().equalsIgnoreCase("ROLE_ADMIN")) {
 				if (userdao.get(vendorDetails.getUsername()) != null) {
-					return new ModelAndView("home", "msg", "UserID already exists.");
+					return new ModelAndView("home", "error", "UserID already exists.");
 				}
 				userdao.saveOrUpdate(vendorDetails.getUsername(), vendorDetails.getPassword(), "ROLE_VENDOR");
 				vendordao.addOrUpdate(vendorDetails);
@@ -67,7 +72,7 @@ public class HomeController {
 				mailSender.send(getEmailForVendor(vendorDetails));
 				return new ModelAndView("home", "msg", "Request sent to admin.");
 			} else {
-				return new ModelAndView("home", "msg",
+				return new ModelAndView("home", "error",
 						"You cannot partner with us as a vendor as you are our delivery partner.");
 			}
 		} else {

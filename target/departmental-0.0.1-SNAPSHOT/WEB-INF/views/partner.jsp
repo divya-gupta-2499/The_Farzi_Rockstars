@@ -38,14 +38,14 @@
 									<div class="form-group">
 										<form:label path="username">Username</form:label>
 										<form:input name="username" path="username" type="text"
-											required="true" class="form-control" placeholder="" />
+											required="true" class="form-control" placeholder="" maxlength="50"/>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<form:label path="password">Password</form:label>
 										<form:input path="password" type="password" required="true"
-											class="form-control" placeholder="" />
+											class="form-control" placeholder="" maxlength="100"/>
 									</div>
 								</div>
 							</sec:authorize>
@@ -54,7 +54,7 @@
 									<form:label path="name">Name</form:label>
 									<form:input path="name" type="text"
 										value="${vendorDetails.name }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="100"/>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -62,7 +62,7 @@
 									<form:label path="companyName">Company Name</form:label>
 									<form:input path="companyName" type="text"
 										value="${vendorDetails.companyName }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="80"/>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -70,7 +70,7 @@
 									<form:label path="email">Email</form:label>
 									<form:input path="email" type="email"
 										value="${vendorDetails.email }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="100"/>
 								</div>
 							</div>
 							<div class="col-md-6">

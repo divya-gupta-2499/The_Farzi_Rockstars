@@ -171,7 +171,7 @@ public class UserDAOImpl implements UserDAO {
 					feedback.setContactInfo(rs.getString("contact_info"));
 					feedback.setSubject(rs.getString("subject"));
 					feedback.setDetails(rs.getString("details"));
-					feedback.setReply(rs.getString("reply"));
+					
 					feedbacks.add(feedback);
 				}
 				return feedbacks;
@@ -199,7 +199,7 @@ public class UserDAOImpl implements UserDAO {
 							feedback.setContactInfo(rs.getString("contact_info"));
 							feedback.setSubject(rs.getString("subject"));
 							feedback.setDetails(rs.getString("details"));
-							feedback.setReply(rs.getString("reply"));
+							
 							feedbacks.add(feedback);
 						}
 						return feedbacks;

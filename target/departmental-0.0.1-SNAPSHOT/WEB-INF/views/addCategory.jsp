@@ -38,7 +38,7 @@
 								<div class="form-group">
 									<form:label path="categoryName">Category Name</form:label>
 									<form:input name="categoryName" path="categoryName" type="text"
-										required="true" class="form-control" placeholder="" />
+										required="true" class="form-control" placeholder="" maxlength="50" />
 								</div>
 							</div>
 
@@ -47,7 +47,7 @@
 								<div class="form-group">
 									<form:label path="description">Description</form:label>
 									<form:input path="description" type="text" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="1000" />
 								</div>
 							</div>
 

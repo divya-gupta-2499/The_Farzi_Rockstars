@@ -7,7 +7,7 @@ public class Order {
 
 	public static int noOfOrders = 0;
 	private int orderId;
-	//private String username;
+	private String username;
 	private Item item;
 	private String status;
 	private String courierId; 
@@ -33,13 +33,13 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	/*public String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
 	public void setUsername(String username) {
 		this.username = username;
-	}*/
+	}
 
 	public Item getItem() {
 		return item;

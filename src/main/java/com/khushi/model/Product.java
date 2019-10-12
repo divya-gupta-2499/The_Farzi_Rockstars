@@ -4,7 +4,7 @@ public class Product {
 
 	private String productId;
 	private String productName;
-	private int quantity;
+	
 	private int price;
 	private String categoryName;
 	private String productUrl;
@@ -14,11 +14,10 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(String productId, String productName, int quantity, int price, String categoryName) {
+	public Product(String productId, String productName, int price, String categoryName) {
 		super();
 		this.productId = productId;
-		this.productName = productName;
-		this.quantity = quantity;
+		this.productName = productName;	
 		this.price = price;
 		this.categoryName = categoryName;
 	}
@@ -37,14 +36,6 @@ public class Product {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
 	}
 
 	public int getPrice() {

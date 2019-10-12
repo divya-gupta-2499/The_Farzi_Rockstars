@@ -24,12 +24,21 @@ public class ProductController {
 	OrderDAO orderdao;
 
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
-	public ModelAndView prod(@RequestParam(value = "msg", required = false) String msg) {
+	public ModelAndView prod(@RequestParam(value = "msg", required = false) String msg, @RequestParam(value = "error", required = false) String error) {
 		ModelAndView model = new ModelAndView("product");
 		if (msg != null) {		
 			model.addObject("msg", /*"Product Added Successfully!"*/ msg);
 			/*model.addObject("categories", productdao.getCategory());
 			model.addObject("products", productdao.findAllProducts());*/
+		}
+		
+		if (error != null) {		
+			model.addObject("error", /*"Product Added Successfully!"*/ error);
+			/*model.addObject("categories", productdao.getCategory());
+			model.addObject("products", productdao.findAllProducts());*/
+		}
+		if(productdao.findAllProducts().isEmpty()) {
+			model.addObject("error", "No products to display.");
 		}
 		model.addObject("categories", productdao.getCategory());
 		model.addObject("products", productdao.findAllProducts());
@@ -54,10 +63,10 @@ public class ProductController {
 			}
 		}
 		if (flag == 0) {
-			return new ModelAndView("addProd", "msg", "Category does not exist. Please add category.");
+			return new ModelAndView("addProd", "error", "Category does not exist. Please add category.");
 		}
 		if (productdao.get(product.getProductId()) != null) {
-			return new ModelAndView("addProd", "msg", "ProductID already exists.");
+			return new ModelAndView("addProd", "error", "ProductID already exists.");
 		}
 		productdao.addProduct(product);
 		return new ModelAndView("home", "msg", "New Product Added Successfully");
@@ -81,7 +90,7 @@ public class ProductController {
 			}
 		}
 		if (flag == 1) {
-			return new ModelAndView("addCategory", "msg", "Category already exists.");
+			return new ModelAndView("addCategory", "error", "Category already exists.");
 		}
 
 		productdao.addCategory(category);
@@ -92,6 +101,9 @@ public class ProductController {
 	public ModelAndView prod2(@PathVariable("categoryName") String categoryName) {
 		ModelAndView model = new ModelAndView("product");
 		model.addObject("categories", productdao.getCategory());
+		if(productdao.findAll(categoryName).isEmpty()) {
+			model.addObject("error", "No Product available in this category.");
+		}
 		model.addObject("products", productdao.findAll(categoryName));
 		return model;
 	}
@@ -106,17 +118,17 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/updateProd/{productId}", method = RequestMethod.POST)
-	public ModelAndView updateProducts(@ModelAttribute("product") Product product) {
+	public String updateProducts(@ModelAttribute("product") Product product) {
 		productdao.addProduct(product);
 		String pId = product.getProductId();
-		return new ModelAndView("product", "msg", "Product " + pId + " Updated.");
+		return "redirect:/products?msg=" + "Product " + pId + " Updated.";
 		// return new ModelAndView("product", "categories", productdao.getCategory());
 	}
 
 	@RequestMapping(value = "/deleteProd/{productId}", method = RequestMethod.GET)
 	public String deleteProd(@PathVariable("productId") String productId) {
 		if (orderdao.isProductInOrders(productId)) {
-			return "redirect:/products?msg=" + "This product is ordered by some customer. Hence cannot be deleted.";
+			return "redirect:/products?error=" + "This product is ordered by some customer. Hence cannot be deleted.";
 			/*return new ModelAndView("product", "msg",
 					"This product is ordered by some customer. Hence cannot be deleted.");*/
 		}

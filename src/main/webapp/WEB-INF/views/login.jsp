@@ -32,13 +32,13 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="firstname">User Name</label>
-                    <input type="text" name="username" class="form-control" placeholder="">
+                    <input type="text" name="username" class="form-control" placeholder="" maxlength="50">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="lastname">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="">
+                    <input type="password" name="password" class="form-control" placeholder="" maxlength="100">
                   </div>
                 </div>
               </div>

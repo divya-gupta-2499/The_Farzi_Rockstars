@@ -65,12 +65,14 @@ public class LoginController {
 		// Registering new profile.
 		else {
 			if (userdao.get(customer.getUsername()) != null) {
-				return new ModelAndView("registerForm", "msg", "UserID already exists.");
+				return new ModelAndView("registerForm", "error", "UserID already exists.");
 			}
 			String activationCode = RandomStringUtils.randomAlphanumeric(15);
 			while(activationCodes.contains(activationCode)) {
 				activationCode = RandomStringUtils.randomAlphanumeric(15);
 			}
+			userdao.saveOrUpdate(customer.getUsername(), customer.getPassword(), "ROLE_USER");
+			customerdao.addCustomer(customer);
 			activationCodes.add(activationCode);
 			userdao.addActivationCode(customer.getUsername(), activationCode);
 			SimpleMailMessage email = new SimpleMailMessage();
@@ -81,8 +83,6 @@ public class LoginController {
 			emailText += "http://localhost:8080/departmental/activation?code=" + activationCode;
 			email.setText(emailText);	
 			mailSender.send(email);
-			userdao.saveOrUpdate(customer.getUsername(), customer.getPassword(), "ROLE_USER");
-			customerdao.addCustomer(customer);
 			return new ModelAndView("home", "msg", "Customer Succesfully Registered. Please verify your account.");
 		}
 	}
@@ -114,6 +114,10 @@ public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			return new ModelAndView("redirect:/");
+		}
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
 			model.addObject("error", "Invalid username and password or User not Verified!");
@@ -123,7 +127,6 @@ public class LoginController {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
 		model.setViewName("login");
-
 		return model;
 	}
 	
@@ -176,9 +179,9 @@ public class LoginController {
 		if (userdao.checkPassword(username, oldPass) && newPass != null && newPass != ""
 				&& newPass.equals(confirmNewPass)) {
 			userdao.updatePassword(username, newPass);
-			return new ModelAndView("home", "msg", "Password Changed Successfuly.");
+			return new ModelAndView("home", "msg", "Password Changed Successfully.");
 		}
-		return new ModelAndView("login", "msg", "Could not change password. Try again!");
+		return new ModelAndView("changePassword", "error", "Invalid information. Try again!");
 
 	}
 

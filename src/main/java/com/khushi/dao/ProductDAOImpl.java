@@ -30,14 +30,14 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void addProduct(Product product) {
 		if (get(product.getProductId()) == null) {
-			String sql = "INSERT INTO product(productId, productName, quantity, price, categoryName) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO product(productId, productName, price, categoryName) VALUES (?, ?, ?, ?)";
 			jdbcTemplate.update(sql, new Object[] { product.getProductId(), product.getProductName(),
-					product.getQuantity(), product.getPrice(), product.getCategoryName() });
+					 product.getPrice(), product.getCategoryName() });
 		}
 
 		else {
-			String sql = "UPDATE product SET productName = ?, quantity = ?, price = ?, categoryName = ? WHERE productId = ?";
-			jdbcTemplate.update(sql, new Object[] { product.getProductName(), product.getQuantity(), product.getPrice(),
+			String sql = "UPDATE product SET productName = ?, price = ?, categoryName = ? WHERE productId = ?";
+			jdbcTemplate.update(sql, new Object[] { product.getProductName(), product.getPrice(),
 					product.getCategoryName(), product.getProductId() });
 		}
 
@@ -73,7 +73,6 @@ public class ProductDAOImpl implements ProductDAO {
 					Product product = new Product();
 					product.setProductId(rs.getString("productId"));
 					product.setProductName(rs.getString("productName"));
-					product.setQuantity(rs.getInt("quantity"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
 					product.setProductUrl(rs.getString("product_url"));
@@ -97,7 +96,6 @@ public class ProductDAOImpl implements ProductDAO {
 					Product product = new Product();
 					product.setProductId(rs.getString("productId"));
 					product.setProductName(rs.getString("productName"));
-					product.setQuantity(rs.getInt("quantity"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
 					product.setProductUrl(rs.getString("product_url"));
@@ -144,7 +142,6 @@ public class ProductDAOImpl implements ProductDAO {
 					Product product = new Product();
 					product.setProductId(rs.getString("productId"));
 					product.setProductName(rs.getString("productName"));
-					product.setQuantity(rs.getInt("quantity"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
 					product.setProductUrl(rs.getString("product_url"));

@@ -17,7 +17,7 @@
 				class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Forgot Password</span>
+						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Password</span>
 					</p>
 					<h1 class="mb-0 bread">Forgot Password</h1>
 				</div>
@@ -38,7 +38,7 @@
 								<div class="form-group">
 									<form:label path="username">Enter your username:</form:label>
 									<form:input path="username" type="text"
-										required="true" class="form-control" placeholder="" />
+										required="true" class="form-control" placeholder="" maxlength="50"/>
 								</div>
 							</div>
 						</div>

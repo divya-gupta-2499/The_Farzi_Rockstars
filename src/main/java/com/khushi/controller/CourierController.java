@@ -37,10 +37,12 @@ public class CourierController {
 
 	@RequestMapping(value = "/pendingOrders")
 	public ModelAndView pendingOrders() {
-		List<Order> pendingOrder = orderdao.getPendingOrders();
+		List<Order> pendingOrders = orderdao.getPendingOrders();
 		ModelAndView model = new ModelAndView("pending");
-		model.addObject("noOfOrders", /*Order.noOfOrders*/ orderdao.getOrderId());
-		model.addObject("orders", pendingOrder);
+		if(pendingOrders.isEmpty()) {
+			model.addObject("error", "No pending orders.");
+		}
+		model.addObject("pendingOrders", pendingOrders);
 		return model;
 	}
 	
@@ -52,7 +54,7 @@ public class CourierController {
 	@RequestMapping(value = "/addDeliveryPartner", method = RequestMethod.POST)
 	public ModelAndView addCourier(@ModelAttribute("courier") Courier courier) {
 		if(userdao.get(courier.getUsername()) != null) {
-			return new ModelAndView("addCourier", "msg", "UserID already exists"); 
+			return new ModelAndView("addCourier", "error", "UserID already exists"); 
 		}
 		userdao.saveOrUpdate(courier.getUsername(), courier.getPassword(), "ROLE_COURIER");
 		courierdao.addCourier(courier);
@@ -64,9 +66,8 @@ public class CourierController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<Order> acceptedOrders = courierdao.getAcceptedOrders(userDetail.getUsername());
-		ModelAndView model = new ModelAndView("pending");
-		model.addObject("noOfOrders", /*Order.noOfOrders*/ orderdao.getOrderId());
-		model.addObject("orders", acceptedOrders);
+		ModelAndView model = new ModelAndView("accepted");
+		model.addObject("acceptedOrders", acceptedOrders);
 		return model;
 	}
 	
@@ -75,9 +76,8 @@ public class CourierController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<Order> deliveredOrders = courierdao.getDeliveredOrders(userDetail.getUsername());
-		ModelAndView model = new ModelAndView("pending");
-		model.addObject("noOfOrders", /*Order.noOfOrders*/ orderdao.getOrderId());
-		model.addObject("orders", deliveredOrders);
+		ModelAndView model = new ModelAndView("delivered");
+		model.addObject("deliveredOrders", deliveredOrders);
 		return model;
 	}
 	

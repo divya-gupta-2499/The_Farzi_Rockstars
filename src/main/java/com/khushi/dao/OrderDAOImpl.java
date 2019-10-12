@@ -91,7 +91,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<Order> getAll() {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT * FROM order_info";
+		String sql = "SELECT * FROM all_orders";
 		return jdbcTemplate.query(sql, new ResultSetExtractor<List<Order>>() {
 
 			@Override
@@ -99,11 +99,10 @@ public class OrderDAOImpl implements OrderDAO {
 				while (rs.next()) {
 					Order order = new Order();
 					order.setOrderId(rs.getInt("orderId"));
+					order.setUsername(rs.getString("username"));
+					order.setCourierId(rs.getString("courierId"));
+					order.setStatus(rs.getString("status"));
 					// order.setUsername(getUsernameFromOrderId(orderId));
-					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
-					item.setQuantity(rs.getInt("quantity"));
-					order.setItem(item);
 					orders.add(order);
 				}
 				return orders;
@@ -167,8 +166,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<Order> getPendingOrders() {
 		orders = new ArrayList<Order>();
-		String sql = "SELECT all_orders.orderId, productId, quantity FROM all_orders, order_info WHERE "
-				+ "status = ? and all_orders.orderId = order_info.orderId";
+		String sql = "SELECT * from all_orders where status = ?";
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -181,11 +179,9 @@ public class OrderDAOImpl implements OrderDAO {
 				while (rs.next()) {
 					Order order = new Order();
 					order.setOrderId(rs.getInt("orderId"));
+					order.setUsername(rs.getString("username"));
 					// order.setUsername(getUsernameFromOrderId(orderId));
-					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
-					item.setQuantity(rs.getInt("quantity"));
-					order.setItem(item);
+					order.setCourierId(rs.getString("courierId"));
 					order.setStatus("Packaging");
 					orders.add(order);
 				}

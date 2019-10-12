@@ -18,7 +18,7 @@
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Orders</span>
 					</p>
-					<h1 class="mb-0 bread">My Orders</h1>
+					<h1 class="mb-0 bread">Order Details</h1>
 				</div>
 			</div>
 		</div>
@@ -95,10 +95,24 @@
 							<span>Payment Method</span> <span>${bill.paymentMethod }</span>
 						</p>
 					</div>
+					<sec:authorize access="hasRole('ROLE_USER')">
 					<p>
 						<a href="/departmental/viewOrders" class="btn btn-primary py-3 px-4">Return
 							to all orders</a>
 					</p>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+					<p>
+						<a href="/departmental/viewAllOrders" class="btn btn-primary py-3 px-4">Return
+							to all orders</a>
+					</p>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_VENDOR')">
+					<p>
+						<a href="/departmental/deliveredOrders" class="btn btn-primary py-3 px-4">Return
+							to orders</a>
+					</p>
+					</sec:authorize>
 				</div>
 			</div>
 		</div>
@@ -108,7 +122,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->	
               Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>

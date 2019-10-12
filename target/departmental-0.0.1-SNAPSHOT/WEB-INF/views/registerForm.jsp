@@ -38,14 +38,14 @@
 									<div class="form-group">
 										<form:label path="username">Username</form:label>
 										<form:input name="username" path="username" type="text"
-											required="true" class="form-control" placeholder="" />
+											required="true" class="form-control" placeholder="" maxlength="50"/>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<form:label path="password">Password</form:label>
 										<form:input path="password" type="password" required="true"
-											class="form-control" placeholder="" />
+											class="form-control" placeholder="" maxlength="100"/>
 									</div>
 								</div>
 							</sec:authorize>
@@ -54,7 +54,7 @@
 									<form:label path="fName">First Name</form:label>
 									<form:input path="fName" type="text"
 										value="${customer.fName }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="100"/>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -62,7 +62,7 @@
 									<form:label path="lName">Last Name</form:label>
 									<form:input path="lName" type="text"
 										value="${customer.lName }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="100"/>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -70,7 +70,7 @@
 									<form:label path="email">Email</form:label>
 									<form:input path="email" type="email"
 										value="${customer.email }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="100"/>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -96,7 +96,7 @@
 									<form:label path="houseNo">House No</form:label>
 									<form:input path="houseNo" type="text"
 										value="${customer.houseNo }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="50"/>
 								</div>
 								</div>
 								
@@ -105,7 +105,7 @@
 									<form:label path="street">Street</form:label>
 									<form:input path="street" type="text"
 										value="${customer.street }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="50"/>
 								</div>
 								</div>
 								
@@ -114,7 +114,7 @@
 									<form:label path="locality">Locality</form:label>
 									<form:input path="locality" type="text"
 										value="${customer.locality }" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="50"/>
 								</div>
 								</div>
 								

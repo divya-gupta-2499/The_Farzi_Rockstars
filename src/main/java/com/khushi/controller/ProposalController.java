@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,23 +29,25 @@ public class ProposalController {
 	@Autowired
 	VendorDAO vendordao;
 
-	@RequestMapping(value = "/sendProposal", method = RequestMethod.GET)
-	public ModelAndView sendProposal1() {
+	@RequestMapping(value = "/sendProposal/{productId}", method = RequestMethod.GET)
+	public ModelAndView sendProposal1(@PathVariable("productId") String productId) {
 		ModelAndView model = new ModelAndView("sendProposal");
+		VendorProposal proposal = new VendorProposal();
+		proposal.setProductId(productId);
+		model.addObject("proposal", proposal);
 		return model;
 	}
 
-	@RequestMapping(value = "/sendProposal", method = RequestMethod.POST)
-	public ModelAndView sendProposal2(@RequestParam(value = "productId") String productId,
-			@RequestParam("price") int price) {
+	@RequestMapping(value = "/sendProposal/{productId}", method = RequestMethod.POST)
+	public ModelAndView sendProposal2(@ModelAttribute("proposal") VendorProposal proposal) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
-		if (vendordao.existsInProposal(userDetail.getUsername(), productId)) {
-			return new ModelAndView("sendProposal", "msg", "Proposal for this product already sent.");
-		} else if (productdao.get(productId) == null) {
-			return new ModelAndView("sendProposal", "msg", "Product does not exist.");
+		if (vendordao.existsInProposal(userDetail.getUsername(), proposal.getProductId())) {
+			return new ModelAndView("sendProposal", "error", "Proposal for this product already sent.");
+		} else if (productdao.get(proposal.getProductId()) == null) {
+			return new ModelAndView("sendProposal", "error", "Product does not exist.");
 		}
-		vendordao.addProposal(userDetail.getUsername(), productId, price);
+		vendordao.addProposal(userDetail.getUsername(), proposal.getProductId(), proposal.getPrice());
 		return new ModelAndView("product", "msg", "Proposal added.");
 	}
 
@@ -53,6 +56,9 @@ public class ProposalController {
 		ModelAndView model = new ModelAndView("viewProposals");
 		if (msg != null) {
 			model.addObject("msg", "Proposal Accepted");
+		}
+		if (msg == null && vendordao.getAllProposals().isEmpty()) {
+			model.addObject("error", "No proposals to display.");
 		}
 		model.addObject("proposals", vendordao.getAllProposals());
 		return model;
@@ -70,7 +76,7 @@ public class ProposalController {
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<VendorProposal> proposals = vendordao.getAcceptedProposals(userDetail.getUsername());
 		if (proposals.isEmpty()) {
-			return new ModelAndView("home", "msg", "No accepted proposals to display.");
+			return new ModelAndView("home", "error", "No accepted proposals to display.");
 		}
 		return new ModelAndView("viewProposals", "proposals", proposals);
 	}

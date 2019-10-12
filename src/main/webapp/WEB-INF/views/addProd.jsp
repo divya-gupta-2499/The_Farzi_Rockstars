@@ -17,7 +17,8 @@
 				class="row no-gutters slider-text align-items-center justify-content-center">
 				<div class="col-md-9 ftco-animate text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Add Product</span>
+						<span class="mr-2"><a href="/departmental/">Home</a></span> <span>Add
+							Product</span>
 					</p>
 					<h1 class="mb-0 bread">Add Product</h1>
 				</div>
@@ -29,9 +30,9 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-xl-7 ftco-animate">
-				<form:form class="billing-form" method="POST" modelAttribute="product"
-		action="/departmental/addProd">
-					
+					<form:form class="billing-form" method="POST"
+						modelAttribute="product" action="/departmental/addProd">
+
 						<h3 class="mb-4 billing-heading">Add Product</h3>
 						<div class="row align-items-end">
 
@@ -39,22 +40,22 @@
 								<div class="form-group">
 									<form:label path="productId">Product Id</form:label>
 									<form:input path="productId" type="text" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="50"/>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<form:label path="productName">Product Name</form:label>
 									<form:input path="productName" type="text" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="100"/>
 								</div>
 							</div>
 
 							<div class="col-md-6">
 								<div class="form-group">
 									<form:label path="price">Price</form:label>
-									<form:input path="price" type="number"
-										required="true" class="form-control" placeholder="" />
+									<form:input path="price" type="number" required="true"
+										class="form-control" placeholder="" />
 								</div>
 							</div>
 
@@ -62,7 +63,15 @@
 								<div class="form-group">
 									<form:label path="categoryName">Category Name</form:label>
 									<form:input path="categoryName" type="text" required="true"
-										class="form-control" placeholder="" />
+										class="form-control" placeholder="" maxlength="50"/>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="form-group">
+									<form:label path="productUrl">Image URL for Product</form:label>
+									<form:input path="productUrl" type="url" required="false"
+										class="form-control" placeholder="" maxlength="500"/>
 								</div>
 							</div>
 
@@ -71,6 +80,11 @@
 							Add Product</button>
 					</form:form>
 					<!-- END -->
+					<div class="row justify-content-center">
+						<div class="col-md-6">
+							<a href="/departmental/addCategory">Add Category </a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
