@@ -26,7 +26,15 @@ Our application uses Spring framework for developing the webapp. SQL is used to 
 
 #### Screenshots/Demo Video
 
+* The Home Page
 
+![alt text](https://github.com/divya-gupta-2499/The_Farzi_Rockstars/blob/main/Screenshot%20from%202021-03-27%2015-54-51.png)
+
+* The Sample Login Page
+
+![alt text](https://github.com/divya-gupta-2499/The_Farzi_Rockstars/blob/main/Screenshot%20from%202021-03-27%2015-55-13.png)
+
+(Note: The frontend design makes use of predesigned templates.)
 
 #### Usage
 
