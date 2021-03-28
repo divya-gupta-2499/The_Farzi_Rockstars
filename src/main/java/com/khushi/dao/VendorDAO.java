@@ -13,13 +13,13 @@ public interface VendorDAO {
 
 	VendorDetail getVendor(String username);
 	
-	public boolean existsInProposal(final String username, final String productId);
+	public boolean existsInProposal(final String username, final int productId);
 	
-	public void addProposal(String username, String productId, int price);
+	public void addProposal(String username, int productId, int price);
 	
 	public List<VendorProposal> getAllProposals();
 	
-	public void acceptProposal(String username, String productId);
+	public void acceptProposal(String username, int productId);
 	
 	public List<VendorProposal> getAcceptedProposals(final String username);
 	

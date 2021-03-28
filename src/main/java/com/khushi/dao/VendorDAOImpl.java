@@ -120,7 +120,7 @@ public class VendorDAOImpl implements VendorDAO {
 	}
 	
 	@Override
-	public boolean existsInProposal(final String username, final String productId) {
+	public boolean existsInProposal(final String username, final int productId) {
 		// TODO Auto-generated method stub
 
 		String sql = "SELECT username FROM vendor_proposal WHERE username = ? and productId = ?";
@@ -128,7 +128,7 @@ public class VendorDAOImpl implements VendorDAO {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
 				preparedStatement.setString(1, username);
-				preparedStatement.setString(2, productId);
+				preparedStatement.setInt(2, productId);
 			}
 		}, new ResultSetExtractor<String>() {
 
@@ -146,7 +146,7 @@ public class VendorDAOImpl implements VendorDAO {
 	}
 	
 	@Override
-	public void addProposal(String username, String productId, int price) {
+	public void addProposal(String username, int productId, int price) {
 		// TODO Auto-generated method stub
 		
 		String sql = "INSERT into vendor_proposal(username,productId,price) values(?, ?, ?)";
@@ -187,7 +187,7 @@ public class VendorDAOImpl implements VendorDAO {
 				while (rs.next()) {
 					VendorProposal vendorProposal = new VendorProposal();
 					vendorProposal.setUsername(rs.getString("username"));
-					vendorProposal.setProductId(rs.getString("productId"));
+					vendorProposal.setProductId(rs.getInt("productId"));
 					vendorProposal.setPrice(rs.getInt("price"));
 					vendorProposal.setStatus(rs.getInt("status"));
 					proposals.add(vendorProposal);
@@ -199,7 +199,7 @@ public class VendorDAOImpl implements VendorDAO {
 	}
 	
 	@Override
-	public void acceptProposal(String username, String productId) {
+	public void acceptProposal(String username, int productId) {
 		// TODO Auto-generated method stub
 		
 		String sql = "Update vendor_proposal set status = ? where username = ? and productId = ?";
@@ -242,7 +242,7 @@ public class VendorDAOImpl implements VendorDAO {
 				while (rs.next()) {
 					VendorProposal vendorProposal = new VendorProposal();
 					vendorProposal.setUsername(rs.getString("username"));
-					vendorProposal.setProductId(rs.getString("productId"));
+					vendorProposal.setProductId(rs.getInt("productId"));
 					vendorProposal.setPrice(rs.getInt("price"));
 					vendorProposal.setStatus(rs.getInt("status"));
 					proposals.add(vendorProposal);

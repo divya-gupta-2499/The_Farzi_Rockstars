@@ -40,7 +40,7 @@ public class CourierController {
 		List<Order> pendingOrders = orderdao.getPendingOrders();
 		ModelAndView model = new ModelAndView("pending");
 		if(pendingOrders.isEmpty()) {
-			model.addObject("error", "No pending orders.");
+			return new ModelAndView("home", "error", "No pending orders.");
 		}
 		model.addObject("pendingOrders", pendingOrders);
 		return model;
@@ -66,6 +66,9 @@ public class CourierController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<Order> acceptedOrders = courierdao.getAcceptedOrders(userDetail.getUsername());
+		if(acceptedOrders.isEmpty()) {
+			return new ModelAndView("home", "error", "No accepted orders.");
+		}
 		ModelAndView model = new ModelAndView("accepted");
 		model.addObject("acceptedOrders", acceptedOrders);
 		return model;
@@ -76,6 +79,9 @@ public class CourierController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		List<Order> deliveredOrders = courierdao.getDeliveredOrders(userDetail.getUsername());
+		if(deliveredOrders.isEmpty()) {
+			return new ModelAndView("home", "error", "No delivered orders.");
+		}
 		ModelAndView model = new ModelAndView("delivered");
 		model.addObject("deliveredOrders", deliveredOrders);
 		return model;

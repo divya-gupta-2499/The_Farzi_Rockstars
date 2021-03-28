@@ -29,7 +29,7 @@
 									an issue</a>
 							</sec:authorize>
 							<sec:authorize
-								access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_VENDOR')">
+								access="!hasRole('ROLE_ADMIN') and !hasRole('ROLE_VENDOR') and !hasRole('ROLE_COURIER')">
 								<a class="dropdown-item" href="/departmental/partner">Partner
 									with us</a>
 							</sec:authorize></li>
@@ -49,7 +49,7 @@
 								Orders</a></li>
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_USER')">
-					<li class="nav-item cta cta-colored"><a
+					<li class="nav-item"><a
 						href="/departmental/cart" class="nav-link"><span
 							class="icon-shopping_cart"></span>Cart</a></li>
 				</sec:authorize>
@@ -64,8 +64,6 @@
 								Profile</a><%--a class="dropdown-item" href="/departmental/viewReplies">View
 								Replies</a--%>
 							<sec:authorize access="hasRole('ROLE_VENDOR')">
-								<a class="dropdown-item" href="/departmental/sendProposal">Send
-									a Proposal</a>
 								<a class="dropdown-item" href="/departmental/acceptedProposals">
 									Accepted Proposals</a>
 							</sec:authorize>

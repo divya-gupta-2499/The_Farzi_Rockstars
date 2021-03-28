@@ -31,7 +31,7 @@ public class CartDAOImpl implements CartDAO {
 	private List<Item> cart = new ArrayList<Item>();
 
 	@Override
-	public void addToCart(String productId, String username) {
+	public void addToCart(int productId, String username) {
 		if (getItem(username, productId) == null) {
 			String sql = "INSERT INTO cart VALUES (?, ?, ?)";
 			jdbcTemplate.update(sql, new Object[] { username, productId, 1 });
@@ -46,13 +46,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public void removeFromCart(String productId, String username) {
+	public void removeFromCart(int productId, String username) {
 		String sql = "DELETE FROM cart WHERE productId = ? and username = ?";
 		jdbcTemplate.update(sql, new Object[] { productId, username });
 	}
 
 	@Override
-	public void updateCart(String username, String productId, int quantity) {
+	public void updateCart(String username, int productId, int quantity) {
 		String sql = "UPDATE cart SET quantity = ? WHERE username = ? AND productId = ?";
 		jdbcTemplate.update(sql, new Object[] { quantity, username, productId });
 	}
@@ -72,7 +72,7 @@ public class CartDAOImpl implements CartDAO {
 			public List<Item> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				while (rs.next()) {
 					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
+					item.setProduct(productdao.get(rs.getInt("productId")));
 					item.setQuantity(rs.getInt("quantity"));
 					cart.add(item);
 				}
@@ -83,13 +83,13 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	@Override
-	public Item getItem(final String username, final String productId) {
+	public Item getItem(final String username, final int productId) {
 
 		String sql = "SELECT * FROM cart WHERE productId = ? and username = ?";
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setString(1, productId);
+				preparedStatement.setInt(1, productId);
 				preparedStatement.setString(2, username);
 			}
 		}, new ResultSetExtractor<Item>() {
@@ -98,7 +98,7 @@ public class CartDAOImpl implements CartDAO {
 			public Item extractData(ResultSet rs) throws SQLException, DataAccessException {
 				if (rs.next()) {
 					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
+					item.setProduct(productdao.get(rs.getInt("productId")));
 					item.setQuantity(rs.getInt("quantity"));
 					return item;
 				}

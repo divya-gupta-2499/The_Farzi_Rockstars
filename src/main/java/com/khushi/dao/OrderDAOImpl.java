@@ -41,9 +41,8 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public void addOrder(String username) {
-		int orderId = /*Order.incrementOrderId()*/ getOrderId() + 1;
-		String sql = "insert into all_orders(orderId, username) values(?, ?)";
-		jdbcTemplate.update(sql, new Object[] { orderId, username });
+		String sql = "insert into all_orders(username) values(?)";
+		jdbcTemplate.update(sql, new Object[] { username });
 		//return orderId;
 	}
 
@@ -129,7 +128,7 @@ public class OrderDAOImpl implements OrderDAO {
 					order.setOrderId(rs.getInt("orderId"));
 					// order.setUsername(getUsernameFromOrderId(orderId));
 					Item item = new Item();
-					item.setProduct(productdao.get(rs.getString("productId")));
+					item.setProduct(productdao.get(rs.getInt("productId")));
 					item.setQuantity(rs.getInt("quantity"));
 					order.setItem(item);
 					orders.add(order);
@@ -296,13 +295,13 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public boolean isProductInOrders(final String productId) {
+	public boolean isProductInOrders(final int productId) {
 		String sql = "SELECT orderId FROM order_info WHERE productId = ?";
 		allOrderIds = new ArrayList<Integer>();
 		return (jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setString(1, productId);
+				preparedStatement.setInt(1, productId);
 			}
 		}, new ResultSetExtractor<List<Integer>>() {
 

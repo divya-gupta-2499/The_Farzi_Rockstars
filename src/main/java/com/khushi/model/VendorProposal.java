@@ -3,7 +3,7 @@ package com.khushi.model;
 public class VendorProposal {
 
 	private String username;
-	private String productId;
+	private int productId;
 	private int price;
 	private int status;
 
@@ -11,7 +11,7 @@ public class VendorProposal {
 		// TODO Auto-generated constructor stub
 	}
 
-	public VendorProposal(String username, String productId, int price) {
+	public VendorProposal(String username, int productId, int price) {
 		super();
 		this.username = username;
 		this.productId = productId;
@@ -26,11 +26,11 @@ public class VendorProposal {
 		this.username = username;
 	}
 
-	public String getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 

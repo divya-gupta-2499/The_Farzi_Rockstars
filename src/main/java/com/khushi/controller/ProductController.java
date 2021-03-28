@@ -109,7 +109,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/updateProd/{productId}", method = RequestMethod.GET)
-	public ModelAndView updateProduct(@PathVariable("productId") String productId) {
+	public ModelAndView updateProduct(@PathVariable("productId") int productId) {
 		Product product = productdao.get(productId);
 		ModelAndView model = new ModelAndView("updateProd");
 		model.addObject("product", product);
@@ -120,13 +120,13 @@ public class ProductController {
 	@RequestMapping(value = "/updateProd/{productId}", method = RequestMethod.POST)
 	public String updateProducts(@ModelAttribute("product") Product product) {
 		productdao.addProduct(product);
-		String pId = product.getProductId();
+		int pId = product.getProductId();
 		return "redirect:/products?msg=" + "Product " + pId + " Updated.";
 		// return new ModelAndView("product", "categories", productdao.getCategory());
 	}
 
 	@RequestMapping(value = "/deleteProd/{productId}", method = RequestMethod.GET)
-	public String deleteProd(@PathVariable("productId") String productId) {
+	public String deleteProd(@PathVariable("productId") int productId) {
 		if (orderdao.isProductInOrders(productId)) {
 			return "redirect:/products?error=" + "This product is ordered by some customer. Hence cannot be deleted.";
 			/*return new ModelAndView("product", "msg",

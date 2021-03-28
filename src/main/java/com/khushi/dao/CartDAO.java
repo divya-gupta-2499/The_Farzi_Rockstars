@@ -5,14 +5,14 @@ import com.khushi.model.Item;
 
 public interface CartDAO {
 
-	public void addToCart(String productId, String username);
+	public void addToCart(int productId, String username);
 
-	public void updateCart(String username, String productId, int quantity);
+	public void updateCart(String username, int productId, int quantity);
 
-	public void removeFromCart(String productId, String username);
+	public void removeFromCart(int productId, String username);
 
 	public List<Item> findAll(final String username);
 
-	public Item getItem(final String username, final String productId);
+	public Item getItem(final String username, final int productId);
 
 }

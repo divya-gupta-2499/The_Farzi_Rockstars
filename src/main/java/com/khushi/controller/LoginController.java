@@ -3,6 +3,8 @@ package com.khushi.controller;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -52,7 +54,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ModelAndView registers(@ModelAttribute("customer") Customer customer) {
+	public ModelAndView registers(@ModelAttribute("customer") Customer customer, HttpServletRequest request) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		// Updating Profile.
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
@@ -80,7 +82,14 @@ public class LoginController {
 			email.setSubject("Activation link.");
 			String emailText = "";
 			emailText += "Here is your activation link\n";
-			emailText += "http://localhost:8080/departmental/activation?code=" + activationCode;
+			String url = request.getRequestURL().toString();
+			int st1 = url.indexOf(':', 9);
+			String port = "";
+			while(url.charAt(st1+1) != '/') {
+				st1++;
+				port = port + url.charAt(st1);
+			}
+			emailText += "http://localhost:" + port + "/departmental/activation?code=" + activationCode;
 			email.setText(emailText);	
 			mailSender.send(email);
 			return new ModelAndView("home", "msg", "Customer Succesfully Registered. Please verify your account.");

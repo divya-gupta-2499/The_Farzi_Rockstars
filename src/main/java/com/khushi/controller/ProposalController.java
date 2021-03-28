@@ -30,7 +30,7 @@ public class ProposalController {
 	VendorDAO vendordao;
 
 	@RequestMapping(value = "/sendProposal/{productId}", method = RequestMethod.GET)
-	public ModelAndView sendProposal1(@PathVariable("productId") String productId) {
+	public ModelAndView sendProposal1(@PathVariable("productId") int productId) {
 		ModelAndView model = new ModelAndView("sendProposal");
 		VendorProposal proposal = new VendorProposal();
 		proposal.setProductId(productId);
@@ -65,7 +65,7 @@ public class ProposalController {
 	}
 
 	@RequestMapping(value = "/acceptProposal/{username}/{productId}", method = RequestMethod.GET)
-	public String accept(@PathVariable("username") String username, @PathVariable("productId") String productId) {
+	public String accept(@PathVariable("username") String username, @PathVariable("productId") int productId) {
 		vendordao.acceptProposal(username, productId);
 		return "redirect:/viewAllProposals?msg";
 	}

@@ -11,7 +11,7 @@ public interface ProductDAO {
 
 	public List<Product> findAll(final String categoryName);
 
-	public Product get(String productId);
+	public Product get(int productId);
 
 	public List<Category> getCategory();
 	
@@ -19,5 +19,5 @@ public interface ProductDAO {
 	
 	public List<Product> findAllProducts();
 	
-	public void deleteProduct(String productId);
+	public void deleteProduct(int productId);
 }

@@ -2,7 +2,7 @@ package com.khushi.model;
 
 public class Product {
 
-	private String productId;
+	private int productId;
 	private String productName;
 	
 	private int price;
@@ -14,7 +14,7 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(String productId, String productName, int price, String categoryName) {
+	public Product(int productId, String productName, int price, String categoryName) {
 		super();
 		this.productId = productId;
 		this.productName = productName;	
@@ -22,11 +22,11 @@ public class Product {
 		this.categoryName = categoryName;
 	}
 
-	public String getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(String productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 

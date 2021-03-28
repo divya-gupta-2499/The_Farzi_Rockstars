@@ -13,6 +13,40 @@
 			access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/cart/update"
 			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/pendingOrders"
+			access="hasRole('ROLE_COURIER')" />
+		<intercept-url pattern="/acceptedOrders"
+			access="hasRole('ROLE_COURIER')" />
+		<intercept-url pattern="/deliveredOrders"
+			access="hasRole('ROLE_COURIER')" />
+		<intercept-url pattern="/contactUs"
+			access="hasRole('ROLE_COURIER') or hasRole('ROLE_USER') or hasRole('ROLE_VENDOR')" />
+		<intercept-url pattern="/viewOrders"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/viewAllOrders"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/addProd"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/addCategory"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="addDeliveryPartner"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/viewAllProposals"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/acceptedProposals"
+			access="hasRole('ROLE_VENDOR')" />
+		<intercept-url pattern="/addVendor"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/viewAllFeedbacks"
+			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/placeOrder"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/addressConfirm"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/update"
+			access="hasRole('ROLE_USER') or hasRole('ROLE_VENDOR')" />
+		<intercept-url pattern="/changePassword"
+			access="hasRole('ROLE_USER') or hasRole('ROLE_VENDOR') or hasRole('ROLE_COURIER') or hasRole('ROLE_ADMIN')" />
 
 		<!-- access denied page -->
 		<access-denied-handler

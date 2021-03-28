@@ -30,9 +30,9 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void addProduct(Product product) {
 		if (get(product.getProductId()) == null) {
-			String sql = "INSERT INTO product(productId, productName, price, categoryName) VALUES (?, ?, ?, ?)";
-			jdbcTemplate.update(sql, new Object[] { product.getProductId(), product.getProductName(),
-					 product.getPrice(), product.getCategoryName() });
+			String sql = "INSERT INTO product(productName, price, categoryName, product_url) VALUES (?, ?, ?, ?)";
+			jdbcTemplate.update(sql, new Object[] {product.getProductName(),
+					 product.getPrice(), product.getCategoryName(), product.getProductUrl() });
 		}
 
 		else {
@@ -44,7 +44,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 	
 	@Override
-	public void deleteProduct(String productId) {
+	public void deleteProduct(int productId) {
 		String sql = "delete from product where productId = ?";
 		jdbcTemplate.update(sql, new Object[] { productId });
 
@@ -71,7 +71,7 @@ public class ProductDAOImpl implements ProductDAO {
 			public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				while (rs.next()) {
 					Product product = new Product();
-					product.setProductId(rs.getString("productId"));
+					product.setProductId(rs.getInt("productId"));
 					product.setProductName(rs.getString("productName"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
@@ -94,7 +94,7 @@ public class ProductDAOImpl implements ProductDAO {
 			public List<Product> extractData(ResultSet rs) throws SQLException, DataAccessException {
 				while (rs.next()) {
 					Product product = new Product();
-					product.setProductId(rs.getString("productId"));
+					product.setProductId(rs.getInt("productId"));
 					product.setProductName(rs.getString("productName"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));
@@ -125,14 +125,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public Product get(final String productId) {
+	public Product get(final int productId) {
 		// TODO Auto-generated method stub
 
 		String sql = "SELECT * FROM product WHERE productId = ?";
 		return jdbcTemplate.query(sql, new PreparedStatementSetter() {
 
 			public void setValues(PreparedStatement preparedStatement) throws SQLException {
-				preparedStatement.setString(1, productId);
+				preparedStatement.setInt(1, productId);
 			}
 		}, new ResultSetExtractor<Product>() {
 
@@ -140,7 +140,7 @@ public class ProductDAOImpl implements ProductDAO {
 			public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
 				if (rs.next()) {
 					Product product = new Product();
-					product.setProductId(rs.getString("productId"));
+					product.setProductId(rs.getInt("productId"));
 					product.setProductName(rs.getString("productName"));
 					product.setPrice(rs.getInt("price"));
 					product.setCategoryName(rs.getString("categoryName"));

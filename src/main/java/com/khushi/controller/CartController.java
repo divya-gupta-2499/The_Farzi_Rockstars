@@ -28,7 +28,7 @@ public class CartController {
 	OrderDAO orderdao;
 
 	@RequestMapping(value = "/cart/buy/{productId}", method = RequestMethod.GET)
-	public String buy(@PathVariable("productId") String productId) {
+	public String buy(@PathVariable("productId") int productId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		cartdao.addToCart(productId, userDetail.getUsername());
@@ -37,7 +37,7 @@ public class CartController {
 	}
 
 	@RequestMapping(value = "/cart/remove/{productId}", method = RequestMethod.GET)
-	public String remove(@PathVariable("productId") String productId) {
+	public String remove(@PathVariable("productId") int productId) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetail = (UserDetails) auth.getPrincipal();
 		cartdao.removeFromCart(productId, userDetail.getUsername());

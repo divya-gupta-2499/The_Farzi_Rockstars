@@ -28,7 +28,7 @@ public interface OrderDAO {
 	
 	public List<Order> getPendingOrders();
 	
-	public boolean isProductInOrders(final String productId);
+	public boolean isProductInOrders(final int productId);
 	
 	public int getOrderId();
 	
